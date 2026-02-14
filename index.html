@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALUMBRIDGE | Le Pont vers ton futur</title>
+    <title>ALUMBRIDGE | Le Pont entre ton diplôme et ta carrière idéale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:italic,wght@900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -30,7 +30,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #F1F1F1;
             color: #0A0A0A;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.5s ease;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -43,7 +43,7 @@
         .bg-grid {
             position: fixed;
             inset: 0;
-            background-size: 30px 30px;
+            background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
             pointer-events: none;
@@ -59,24 +59,15 @@
 
         .text-gradient-brand {
             background: linear-gradient(135deg, #F97316 0%, #DC2626 100%);
-            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientMove 4s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .glass {
             background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 20px;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            border-radius: 24px;
         }
 
         .dark .glass {
@@ -84,251 +75,331 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .glass:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.2);
+        /* Marquee Styles */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 20px;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        @media (max-width: 640px) {
-            .hero-title { font-size: 2.75rem; line-height: 1.1; }
+        .marquee-track {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 20px;
+            animation: scroll 40s linear infinite;
+        }
+
+        .marquee-reverse {
+            animation: scroll 40s linear infinite reverse !important;
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
         }
 
         .btn-premium {
-            background: #0A0A0A;
-            color: white;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .dark .btn-premium {
             background: linear-gradient(135deg, #F97316 0%, #DC2626 100%);
             color: white;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3); }
 
-        .btn-premium:active { transform: scale(0.95); }
-
-        /* Initial state for GSAP */
-        .reveal { opacity: 0; transform: translateY(30px) scale(0.95); }
+        /* GSAP Initial States */
+        .reveal { opacity: 0; transform: translateY(30px); }
         .hero-reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Background Grid Element -->
     <div class="bg-grid"></div>
 
     <!-- Header -->
     <nav class="fixed top-0 w-full z-50 bg-page/80 dark:bg-darkPage/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="w-7 h-7 bg-brand rounded flex items-center justify-center font-black text-white text-sm shadow-lg shadow-brand/20">A</div>
-                <span class="text-base font-black tracking-tighter">ALUMBRIDGE</span>
+                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-brand/20">A</div>
+                <span class="text-lg font-black tracking-tighter">ALUMBRIDGE</span>
             </div>
             
-            <div class="hidden lg:flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <div class="hidden lg:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest opacity-60">
                 <a href="#problem" class="hover:text-brand transition-colors">Problème</a>
                 <a href="#solution" class="hover:text-brand transition-colors">Solution</a>
                 <a href="#benefits" class="hover:text-brand transition-colors">Avantages</a>
                 <a href="#target" class="hover:text-brand transition-colors">Pour qui ?</a>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
                 <button onclick="toggleTheme()" class="p-2 opacity-50 hover:opacity-100 transition-opacity">
-                    <svg id="theme-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                 </button>
-                <a href="#contact" class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-tight shadow-md">
-                    Inscription
+                <a href="#contact" class="btn-premium px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-tight shadow-md">
+                    Inscription gratuite
                 </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-16 px-5 min-h-screen flex flex-col items-center justify-center text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="hero-reveal hero-title font-black tracking-tighter mb-6 text-4xl sm:text-6xl lg:text-8xl">
-                Le <span class="text-gradient-brand font-display italic px-1">PONT</span> entre ton diplôme <br class="hidden sm:block">
+    <section class="relative pt-44 pb-20 px-5 min-h-screen flex flex-col items-center justify-center text-center">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="hero-reveal font-black tracking-tighter mb-8 text-4xl sm:text-6xl lg:text-8xl leading-[1.1]">
+                Le <span class="text-gradient-brand font-display italic px-2">PONT</span> entre ton diplôme <br class="hidden sm:block">
                 et ta carrière idéale.
             </h1>
             
-            <h2 class="hero-reveal text-lg sm:text-2xl font-medium opacity-80 mb-6 leading-tight">
-                Gagne en <span class="text-brand font-bold underline decoration-brand/20 underline-offset-4">expérience réelle</span> grâce au freelance encadré, sans la pression immédiate du CDI.
+            <h2 class="hero-reveal text-xl sm:text-3xl font-medium opacity-80 mb-8 max-w-3xl mx-auto leading-tight">
+                Gagne en <span class="text-brand font-bold underline decoration-brand/30 underline-offset-8">expérience réelle</span> grâce au freelance encadré, sans la pression immédiate du CDI.
             </h2>
 
-            <p class="hero-reveal text-sm sm:text-base opacity-50 max-w-xl mx-auto mb-10">
+            <p class="hero-reveal text-sm sm:text-lg opacity-50 max-w-2xl mx-auto mb-12 leading-relaxed">
                 Teste tes compétences, muscle ton CV et choisis ta voie (salariat ou entrepreneuriat) avec l'appui du réseau alumni.
             </p>
 
-            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-3 mb-16">
-                <a href="#" class="btn-premium px-8 py-4 rounded-full font-black text-sm w-full sm:w-auto text-center shadow-lg shadow-black/10">
+            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-24">
+                <a href="#" class="btn-premium px-10 py-5 rounded-full font-black text-sm sm:text-lg w-full sm:w-auto shadow-xl">
                     REJOINDRE L'AVENTURE
                 </a>
-                <button onclick="scrollToContact()" class="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 px-8 py-4 rounded-full font-bold text-sm w-full sm:w-auto hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                <button onclick="scrollToContact()" class="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 px-10 py-5 rounded-full font-bold text-sm sm:text-lg w-full sm:w-auto hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
                     M'envoyer le lien par mail
                 </button>
             </div>
 
-            <!-- Floating Dashboard Preview -->
-            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-4 w-full" id="hero-cards">
-                <div class="glass p-5 text-left border-l-4 border-l-blue-500 shadow-sm card-float" data-depth="0.1">
-                    <div class="text-[9px] font-black opacity-40 uppercase mb-2">Prochaine Mission</div>
-                    <div class="text-sm font-bold truncate">Audit SEO • Brand Paris</div>
-                    <div class="text-xs text-brand font-bold mt-1 flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse"></span> Encadrement actif
+            <!-- Dashboard Preview / Info Cards -->
+            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
+                <div class="glass p-6 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Missions Freelance</div>
+                    <div class="text-base font-bold">Audit UI/UX • Tech Startup</div>
+                    <div class="text-xs text-brand font-bold mt-2 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span> Encadrement expert
                     </div>
                 </div>
-                <div class="glass p-5 text-left border-l-4 border-l-brand shadow-sm card-float" data-depth="0.2">
-                    <div class="text-[9px] font-black opacity-40 uppercase mb-2">Crédibilité</div>
-                    <div class="text-sm font-bold">+14 Expériences</div>
-                    <div class="w-full bg-black/5 dark:bg-white/10 h-1 rounded-full mt-2">
-                        <div class="bg-brand w-[70%] h-full rounded-full" id="progress-bar"></div>
+                <div class="glass p-6 text-left border-l-4 border-l-brand shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Compétences Réelles</div>
+                    <div class="text-base font-bold">+85% Crédibilité CV</div>
+                    <div class="w-full bg-black/5 dark:bg-white/10 h-1.5 rounded-full mt-3">
+                        <div class="bg-brand h-full rounded-full" style="width: 85%"></div>
                     </div>
                 </div>
-                <div class="glass p-5 text-left border-l-4 border-l-green-500 shadow-sm card-float" data-depth="0.15">
-                    <div class="text-[9px] font-black opacity-40 uppercase mb-2">Réseau Alumni</div>
-                    <div class="text-sm font-bold">1 240+ Mentors</div>
-                    <div class="flex -space-x-2 mt-2">
-                        <div class="w-5 h-5 rounded-full bg-gray-300 border border-page dark:border-darkPage"></div>
-                        <div class="w-5 h-5 rounded-full bg-gray-400 border border-page dark:border-darkPage"></div>
-                        <div class="w-5 h-5 rounded-full bg-gray-500 border border-page dark:border-darkPage"></div>
+                <div class="glass p-6 text-left border-l-4 border-l-green-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Réseau Alumni</div>
+                    <div class="text-base font-bold">1 240+ Mentors actifs</div>
+                    <div class="flex -space-x-3 mt-3">
+                        <div class="w-6 h-6 rounded-full bg-gray-300 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-400 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-500 border-2 border-page dark:border-darkPage"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Problématique -->
-    <section id="problem" class="py-24 px-5 bg-white/50 dark:bg-white/5">
-        <div class="max-w-xl mx-auto">
-            <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-8 text-center uppercase">
-                Le paradoxe du <br><span class="text-brand">jeune diplômé.</span>
-            </h2>
-            
-            <div class="reveal space-y-6 text-base sm:text-lg leading-relaxed opacity-80 text-center sm:text-left">
-                <p>Diplôme en main, tu avances sur une ligne fragile. Entre la joie de l'accomplissement et le vertige de l'après : l'appel rassurant du CDI vs l'élan incertain de l'entrepreneuriat.</p>
-                <p class="text-sm opacity-60">Cette peur silencieuse de ne pas être à la hauteur parce que l'expérience manque au moment précis où l'école s'efface.</p>
+    <!-- Marquee Expertise (Code Source Reference Style) -->
+    <div class="py-12 bg-white/30 dark:bg-white/5 border-y border-black/5 dark:border-white/5 overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Freelance Encadré</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Crédibilité Réelle</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Réseau Alumni</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">CV Musclé</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Expérience Jeune Diplômé</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Freelance Encadré</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Crédibilité Réelle</span>
             </div>
+        </div>
+    </div>
 
-            <div class="reveal mt-10 p-6 bg-red-500/5 border border-red-500/10 rounded-2xl text-center shadow-inner">
-                <span class="text-red-500 font-bold text-xs uppercase tracking-widest block mb-2">Le mur de la réalité</span>
-                <p class="text-lg font-black italic">"On demande 3 ans d'XP pour un poste junior..."</p>
+    <!-- Section Problématique -->
+    <section id="problem" class="py-32 px-5 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal text-brand font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">L'Empathie</span>
+                <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-8 uppercase leading-none">
+                    Le paradoxe du <br><span class="text-gradient-brand">jeune diplômé.</span>
+                </h2>
+            </div>
+            
+            <div class="reveal grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-8 text-base sm:text-xl leading-relaxed opacity-80">
+                    <p>Diplôme en main, tu avances sur une ligne fragile. Entre la joie de l'accomplissement et le vertige de l'après : l'appel rassurant du CDI vs l'élan incertain de l'entrepreneuriat.</p>
+                    <p class="text-sm opacity-50">Cette peur silencieuse de ne pas être à la hauteur parce que l'expérience manque au moment précis où l'école s'efface.</p>
+                </div>
+                <div class="glass p-8 bg-red-500/5 border-red-500/10 text-center relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase">ALERTE XP</div>
+                    <p class="text-lg sm:text-2xl font-black italic text-red-600 dark:text-red-400 leading-tight">
+                        "On demande 3 ans d'XP pour un poste junior..."
+                    </p>
+                    <div class="mt-4 text-[10px] font-bold opacity-40 uppercase tracking-widest">Pas d’expérience ? La boucle infernale.</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Section Solution -->
-    <section id="solution" class="py-24 px-5">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-4 uppercase">ALUMBRIDGE : <br><span class="text-brand">TON BAC À SABLE PRO.</span></h2>
-                <p class="reveal text-sm opacity-50 tracking-widest uppercase font-bold">Un cadre sécurisé pour construire ta crédibilité réelle.</p>
+    <section id="solution" class="py-32 px-5 bg-black/5 dark:bg-white/5 border-y border-black/5 dark:border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-6 uppercase">ALUMBRIDGE : <br><span class="text-gradient-brand">TON BAC À SABLE PROFESSIONNEL.</span></h2>
+                <p class="reveal text-sm sm:text-lg opacity-60 max-w-3xl mx-auto">Un cadre sécurisé pour réaliser des missions freelance concrètes, proposées par des entreprises, pour construire ta crédibilité réelle.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="reveal glass p-8 group">
-                    <div class="text-3xl mb-4 transform group-hover:scale-125 transition-transform duration-500">🎯</div>
-                    <h3 class="text-lg font-bold mb-3 uppercase tracking-tight">Missions Concrètes</h3>
-                    <p class="text-sm opacity-60 leading-relaxed">De vrais projets, de vrais enjeux. Ne dis plus que tu "sais faire", prouve-le sur le terrain.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-4xl mb-6">🎯</div>
+                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Missions Concrètes</h3>
+                    <p class="text-sm opacity-60 leading-relaxed italic">De vrais projets, de vrais enjeux. Ne te contente plus de la théorie académique.</p>
                 </div>
-                <div class="reveal glass p-8 group">
-                    <div class="text-3xl mb-4 transform group-hover:scale-125 transition-transform duration-500">🛡️</div>
-                    <h3 class="text-lg font-bold mb-3 uppercase tracking-tight">Freelance Encadré</h3>
-                    <p class="text-sm opacity-60 leading-relaxed">La liberté de l'indépendant, le filet de sécurité du réseau via des mentors dédiés.</p>
+                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-4xl mb-6">🛡️</div>
+                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Freelance Encadré</h3>
+                    <p class="text-sm opacity-60 leading-relaxed italic">La liberté de l'indépendant, le filet de sécurité du réseau. Jamais seul face au client.</p>
                 </div>
-                <div class="reveal glass p-8 group">
-                    <div class="text-3xl mb-4 transform group-hover:scale-125 transition-transform duration-500">💎</div>
-                    <h3 class="text-lg font-bold mb-3 uppercase tracking-tight">Crédibilité</h3>
-                    <p class="text-sm opacity-60 leading-relaxed">Transforme tes diplômes en preuve d'expertise validée par des entreprises partenaires.</p>
+                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-4xl mb-6">💎</div>
+                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Crédibilité</h3>
+                    <p class="text-sm opacity-60 leading-relaxed italic">Ne dis plus que tu "sais faire", prouve-le. Transforme chaque mission en preuve de valeur.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Bénéfices -->
-    <section id="benefits" class="py-24 px-5 bg-black/5 dark:bg-white/5">
+    <section id="benefits" class="py-32 px-5">
         <div class="max-w-4xl mx-auto">
-            <h2 class="reveal text-xl sm:text-3xl font-black tracking-tighter mb-10 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
+            <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-16 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
             
-            <div class="reveal space-y-3" id="benefits-list">
-                <div class="flex items-center gap-4 glass p-4 text-sm font-bold hover:bg-white transition-colors">
-                    <span class="text-brand text-xs">[Vitesse]</span> Gagne de l'expérience professionnelle réelle rapidement.
+            <div class="space-y-4">
+                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Vitesse]</span>
+                    <p class="text-sm sm:text-base font-bold">Gagne de l'expérience professionnelle réelle rapidement.</p>
                 </div>
-                <div class="flex items-center gap-4 glass p-4 text-sm font-bold hover:bg-white transition-colors">
-                    <span class="text-brand text-xs">[Liberté]</span> Travaille sans s'engager trop tôt en CDI.
+                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Liberté]</span>
+                    <p class="text-sm sm:text-base font-bold">Travaille sur des projets concrets sans s'engager trop tôt en CDI.</p>
                 </div>
-                <div class="flex items-center gap-4 glass p-4 text-sm font-bold hover:bg-white transition-colors">
-                    <span class="text-brand text-xs">[Exploration]</span> Teste le freelance sans risques excessifs.
+                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Exploration]</span>
+                    <p class="text-sm sm:text-base font-bold">Teste le freelance ou l'entrepreneuriat sans risques excessifs.</p>
                 </div>
-                <div class="flex items-center gap-4 glass p-4 text-sm font-bold hover:bg-white transition-colors">
-                    <span class="text-brand text-xs">[Confiance]</span> Renforce ton CV et ton assurance face aux recruteurs.
+                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Confiance]</span>
+                    <p class="text-sm sm:text-base font-bold">Renforce ton CV et ton assurance face aux recruteurs.</p>
                 </div>
-                <div class="flex items-center gap-4 glass p-4 text-sm font-bold hover:bg-white transition-colors">
-                    <span class="text-brand text-xs">[Réseau]</span> Évolue dans un cadre de confiance via les alumni.
+                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Réseau]</span>
+                    <p class="text-sm sm:text-base font-bold">Évolue dans un cadre de confiance via le réseau alumni.</p>
                 </div>
             </div>
 
-            <div class="reveal mt-16 text-center italic opacity-60 text-sm">
-                "J'ai trouvé mon premier CDI grâce à une mission Alumbridge."
+            <div class="reveal mt-20 text-center">
+                <div class="inline-block glass p-8 border-brand/20 shadow-xl shadow-brand/5 max-w-2xl">
+                    <p class="text-xl sm:text-2xl font-black italic tracking-tighter leading-tight">
+                        "J'ai trouvé mon premier CDI grâce à une mission Alumbridge."
+                    </p>
+                    <div class="mt-4 flex items-center justify-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-brand/20 border border-brand/40"></div>
+                        <span class="text-xs font-bold uppercase tracking-widest opacity-60">Success Story Alumni #89</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Cible -->
-    <section id="target" class="py-24 px-5">
-        <div class="max-w-3xl mx-auto text-center">
-            <div class="reveal inline-block px-3 py-1 rounded-full bg-brand/10 text-brand text-[9px] font-black tracking-widest mb-6">REJOINS LE MOUVEMENT</div>
-            <h2 class="reveal text-2xl sm:text-5xl font-black tracking-tighter mb-12 uppercase">On a conçu ce <span class="text-brand">PONT</span> pour toi.</h2>
+    <!-- Marquee Reviews (Reverse) -->
+    <div class="py-20 bg-brand/5 overflow-hidden">
+        <div class="marquee-container">
+            <div class="marquee-track marquee-reverse">
+                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
+                    <div class="text-brand text-xs italic font-black">★★★★★</div>
+                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Le freelance encadré m'a permis de valider mes acquis."</p>
+                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Julie R. (Alumni)</span>
+                </div>
+                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
+                    <div class="text-brand text-xs italic font-black">★★★★★</div>
+                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Enfin une alternative crédible au CDI immédiat."</p>
+                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Lucas M. (Étudiant)</span>
+                </div>
+                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
+                    <div class="text-brand text-xs italic font-black">★★★★★</div>
+                    <p class="text-xs opacity-80 leading-relaxed font-medium">"J'ai testé l'indépendance avec un filet de sécurité."</p>
+                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Kevin S. (Freelance)</span>
+                </div>
+                <!-- Duplicate -->
+                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
+                    <div class="text-brand text-xs italic font-black">★★★★★</div>
+                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Le freelance encadré m'a permis de valider mes acquis."</p>
+                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Julie R. (Alumni)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Cible -->
+    <section id="target" class="py-32 px-5">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-brand/10 text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-8">rejoins le mouvement</div>
+            <h2 class="reveal text-4xl sm:text-7xl font-black tracking-tighter mb-16 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
             
-            <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-3 text-left" id="target-grid">
-                <div class="p-5 glass text-xs font-bold flex items-center gap-3">
-                    <span class="opacity-20 text-xl font-black">01</span> Alumnis récemment diplômés en quête de légitimité.
+            <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                    <span class="text-2xl opacity-40 font-black">01</span>
+                    <p class="text-sm sm:text-base font-bold leading-tight">Alumnis récemment diplômés en quête de légitimité.</p>
                 </div>
-                <div class="p-5 glass text-xs font-bold flex items-center gap-3">
-                    <span class="opacity-20 text-xl font-black">02</span> Étudiants en fin de cursus prêts pour l'immersion.
+                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                    <span class="text-2xl opacity-40 font-black">02</span>
+                    <p class="text-sm sm:text-base font-bold leading-tight">Étudiants en fin de cursus prêts pour l'immersion.</p>
                 </div>
-                <div class="p-5 glass text-xs font-bold flex items-center gap-3">
-                    <span class="opacity-20 text-xl font-black">03</span> Profils hésitants entre CDI, freelance ou entrepreneuriat.
+                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                    <span class="text-2xl opacity-40 font-black">03</span>
+                    <p class="text-sm sm:text-base font-bold leading-tight">Profils hésitants entre CDI, freelance ou entrepreneuriat.</p>
                 </div>
-                <div class="p-5 glass text-xs font-bold flex items-center gap-3">
-                    <span class="opacity-20 text-xl font-black">04</span> Ceux qui veulent apprendre par la pratique.
+                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                    <span class="text-2xl opacity-40 font-black">04</span>
+                    <p class="text-sm sm:text-base font-bold leading-tight">Ceux qui veulent apprendre par la pratique.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer CTA -->
-    <footer id="contact" class="py-24 px-5 border-t border-black/5 dark:border-white/5">
-        <div class="max-w-xl mx-auto text-center">
-            <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-12 uppercase leading-none">
-                Prêt à construire ton <br><span class="text-gradient-brand">pont vers demain ?</span>
+    <footer id="contact" class="py-32 px-5 border-t border-black/5 dark:border-white/5 bg-white/20 dark:bg-black/40">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="reveal text-4xl sm:text-7xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">
+                Prêt à construire ton <span class="text-gradient-brand">pont vers demain ?</span>
             </h2>
             
-            <div class="reveal flex flex-wrap justify-center gap-6 text-[9px] font-black uppercase tracking-widest opacity-40 mb-12">
+            <div class="reveal flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-16">
                 <span>Inscription gratuite</span>
                 <span>Sans engagement</span>
                 <span>Accès prioritaire</span>
             </div>
 
-            <div class="reveal space-y-4">
-                <a href="#" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm uppercase tracking-tight shadow-xl shadow-brand/10 hover:shadow-brand/20 transition-all">
+            <div class="reveal space-y-6">
+                <a href="#" class="btn-premium block w-full py-6 rounded-2xl font-black text-sm sm:text-xl uppercase tracking-tight shadow-2xl shadow-brand/20">
                     Remplir le questionnaire maintenant
                 </a>
                 
-                <div class="mt-16 text-left bg-white/50 dark:bg-white/5 p-8 sm:p-12 rounded-[40px] border border-black/5 dark:border-white/10 shadow-2xl">
-                    <h3 class="text-xl font-black mb-8 uppercase tracking-tighter">M'envoyer le lien par mail</h3>
+                <div class="mt-20 text-left bg-white/80 dark:bg-black/40 p-10 sm:p-16 rounded-[48px] border border-black/5 dark:border-white/10 shadow-2xl">
+                    <h3 class="text-2xl font-black mb-10 uppercase tracking-tighter">M'envoyer le lien par mail</h3>
                     <form onsubmit="event.preventDefault();" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <input type="text" placeholder="Prénom" class="w-full px-6 py-4 bg-white dark:bg-black/20 border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all text-sm">
-                            <input type="email" placeholder="Email" class="w-full px-6 py-4 bg-white dark:bg-black/20 border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all text-sm">
+                            <input type="text" placeholder="Prénom" class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
+                            <input type="email" placeholder="Email" class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
                         </div>
-                        <textarea placeholder="Votre message (optionnel)..." class="w-full px-6 py-4 bg-white dark:bg-black/20 border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all text-sm h-40"></textarea>
-                        <button class="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-xs uppercase tracking-widest hover:opacity-90 transition-opacity">Envoyer le lien</button>
+                        <textarea placeholder="Votre message ou question..." class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm h-40"></textarea>
+                        <button class="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity">Envoyer le lien</button>
                     </form>
                 </div>
             </div>
 
-            <div class="mt-24 text-[9px] font-bold uppercase tracking-[0.4em] opacity-20">
+            <div class="mt-32 text-[10px] font-bold uppercase tracking-[0.5em] opacity-20">
                 Made with ❤️ by ALUMBRIDGE Team
             </div>
         </div>
@@ -337,73 +408,30 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // --- Animations de Chargement ---
-        const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.2 }});
+        // --- GSAP Entrance ---
+        const entrance = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.5 }});
         
-        tl.to(".hero-reveal", {
+        entrance.to(".hero-reveal", {
             opacity: 1,
             y: 0,
             stagger: 0.15,
-            delay: 0.3
+            delay: 0.5
         });
 
-        // Animation de la barre de progression dans le hero
-        tl.from("#progress-bar", {
-            width: 0,
-            duration: 2,
-            ease: "expo.out"
-        }, "-=1");
-
-        // --- Floating Animation pour les cartes du Hero ---
-        gsap.to(".card-float", {
-            y: (i, el) => -15 * parseFloat(el.getAttribute('data-depth')),
-            duration: 2.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            stagger: 0.2
-        });
-
-        // --- Scroll Triggers ---
+        // --- Reveal Sections on Scroll ---
         const revealElements = gsap.utils.toArray('.reveal');
         revealElements.forEach((el) => {
             gsap.to(el, {
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 92%",
+                    start: "top 95%",
                     toggleActions: "play none none reverse"
                 },
                 y: 0,
                 opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: "power3.out"
+                duration: 1.2,
+                ease: "power4.out"
             });
-        });
-
-        // Animation spécifique pour la liste des bénéfices
-        gsap.from("#benefits-list .glass", {
-            scrollTrigger: {
-                trigger: "#benefits-list",
-                start: "top 80%"
-            },
-            x: -20,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.8
-        });
-
-        // Animation grille cible
-        gsap.from("#target-grid .glass", {
-            scrollTrigger: {
-                trigger: "#target-grid",
-                start: "top 80%"
-            },
-            scale: 0.8,
-            opacity: 0,
-            stagger: 0.15,
-            duration: 1,
-            ease: "back.out(1.7)"
         });
 
         // --- Theme Management ---
@@ -425,6 +453,7 @@
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Apply saved theme
         if (localStorage.theme === 'dark') {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
