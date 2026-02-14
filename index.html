@@ -76,6 +76,15 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* Nav Transition */
+        #main-nav {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+        .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
         /* Marquee Styles */
         .marquee-container {
             display: flex;
@@ -123,11 +132,9 @@
                 justify-content: center;
                 overflow: hidden;
             }
-            /* Évite que le texte touche le header */
             .hero-pc-fix {
                 padding-top: 120px !important; 
             }
-            /* Empêche la superposition en limitant la taille des blocs */
             .hero-content-wrapper {
                 max-height: 90vh;
                 display: flex;
@@ -141,27 +148,22 @@
 
     <div class="bg-grid"></div>
 
-    <!-- Header -->
-    <nav class="fixed top-0 w-full z-[100] bg-page/80 dark:bg-darkPage/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-            <!-- Logo avec redirection vers Accueil -->
-            <a href="#home" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">A</div>
+    <!-- Floating Navigation -->
+    <nav id="main-nav" class="fixed top-0 w-full z-[100] pointer-events-none">
+        <div class="max-w-7xl mx-auto px-5 py-6 flex items-center justify-between">
+            <!-- Logo Floating -->
+            <a href="#home" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center gap-2 group pointer-events-auto">
+                <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">A</div>
                 <span class="text-lg font-black tracking-tighter group-hover:text-brand transition-colors">ALUMBRIDGE</span>
             </a>
             
-            <div class="hidden lg:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                <a href="#problem" class="hover:text-brand transition-colors">Problème</a>
-                <a href="#solution" class="hover:text-brand transition-colors">Solution</a>
-                <a href="#benefits" class="hover:text-brand transition-colors">Avantages</a>
-                <a href="#target" class="hover:text-brand transition-colors">Pour qui ?</a>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()" class="p-2 opacity-50 hover:opacity-100 transition-opacity">
+            <div class="flex items-center gap-3 pointer-events-auto">
+                <!-- Theme Toggle Floating -->
+                <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-md opacity-80 hover:opacity-100 transition-all">
                     <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                 </button>
-                <a href="#contact" class="btn-premium px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-tight shadow-md">
+                <!-- Signup Button Floating -->
+                <a href="#contact" class="btn-premium px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-tight shadow-xl">
                     Inscription gratuite
                 </a>
             </div>
@@ -428,6 +430,21 @@
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
+
+        // --- Navigation Hide on Scroll ---
+        let lastScrollY = window.scrollY;
+        const nav = document.getElementById('main-nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                // Scroll down
+                nav.classList.add('nav-hidden');
+            } else {
+                // Scroll up
+                nav.classList.remove('nav-hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
 
         // --- GSAP Entrance ---
         const entrance = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.5 }});
