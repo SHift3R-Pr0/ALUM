@@ -112,6 +112,20 @@
         /* GSAP Initial States */
         .reveal { opacity: 0; transform: translateY(30px); }
         .hero-reveal { opacity: 0; transform: translateY(40px); }
+
+        /* PC Viewport constraints */
+        @media (min-width: 1024px) {
+            section {
+                min-height: auto;
+                max-height: 100vh; /* Garde les sections dans le champ de vision */
+                overflow: hidden;
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+            }
+            .hero-pc-fix {
+                padding-top: 8rem;
+            }
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -145,61 +159,61 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-44 pb-20 px-5 min-h-screen flex flex-col items-center justify-center text-center">
+    <section class="relative hero-pc-fix pt-32 pb-16 px-5 lg:h-screen flex flex-col items-center justify-center text-center">
         <div class="max-w-5xl mx-auto">
-            <h1 class="hero-reveal font-black tracking-tighter mb-8 text-4xl sm:text-6xl lg:text-8xl leading-[1.1]">
+            <h1 class="hero-reveal font-black tracking-tighter mb-4 text-4xl sm:text-6xl lg:text-7xl leading-[1.1]">
                 Le <span class="text-gradient-brand font-display italic px-2">PONT</span> entre ton diplôme <br class="hidden sm:block">
                 et ta carrière idéale.
             </h1>
             
-            <h2 class="hero-reveal text-xl sm:text-3xl font-medium opacity-80 mb-8 max-w-3xl mx-auto leading-tight">
+            <h2 class="hero-reveal text-lg sm:text-2xl font-medium opacity-80 mb-6 max-w-3xl mx-auto leading-tight">
                 Gagne en <span class="text-brand font-bold underline decoration-brand/30 underline-offset-8">expérience réelle</span> grâce au freelance encadré, sans la pression immédiate du CDI.
             </h2>
 
-            <p class="hero-reveal text-sm sm:text-lg opacity-50 max-w-2xl mx-auto mb-12 leading-relaxed">
+            <p class="hero-reveal text-sm sm:text-lg opacity-50 max-w-2xl mx-auto mb-8 leading-relaxed">
                 Teste tes compétences, muscle ton CV et choisis ta voie (salariat ou entrepreneuriat) avec l'appui du réseau alumni.
             </p>
 
-            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-24">
-                <a href="#" class="btn-premium px-10 py-5 rounded-full font-black text-sm sm:text-lg w-full sm:w-auto shadow-xl">
+            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                <a href="#" class="btn-premium px-8 py-4 rounded-full font-black text-sm sm:text-base w-full sm:w-auto shadow-xl">
                     REJOINDRE L'AVENTURE
                 </a>
-                <button onclick="scrollToContact()" class="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 px-10 py-5 rounded-full font-bold text-sm sm:text-lg w-full sm:w-auto hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                <button onclick="scrollToContact()" class="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 px-8 py-4 rounded-full font-bold text-sm sm:text-base w-full sm:w-auto hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
                     M'envoyer le lien par mail
                 </button>
             </div>
 
             <!-- Dashboard Preview / Info Cards -->
-            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
-                <div class="glass p-6 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
-                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Missions Freelance</div>
-                    <div class="text-base font-bold">Audit UI/UX • Tech Startup</div>
-                    <div class="text-xs text-brand font-bold mt-2 flex items-center gap-2">
+            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-6xl mx-auto">
+                <div class="glass p-4 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Missions Freelance</div>
+                    <div class="text-sm font-bold truncate">Audit UI/UX • Tech Startup</div>
+                    <div class="text-xs text-brand font-bold mt-1 flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span> Encadrement expert
                     </div>
                 </div>
-                <div class="glass p-6 text-left border-l-4 border-l-brand shadow-sm transform hover:-translate-y-1 transition-transform">
-                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Compétences Réelles</div>
-                    <div class="text-base font-bold">+85% Crédibilité CV</div>
-                    <div class="w-full bg-black/5 dark:bg-white/10 h-1.5 rounded-full mt-3">
+                <div class="glass p-4 text-left border-l-4 border-l-brand shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Compétences Réelles</div>
+                    <div class="text-sm font-bold">+85% Crédibilité CV</div>
+                    <div class="w-full bg-black/5 dark:bg-white/10 h-1 rounded-full mt-2">
                         <div class="bg-brand h-full rounded-full" style="width: 85%"></div>
                     </div>
                 </div>
-                <div class="glass p-6 text-left border-l-4 border-l-green-500 shadow-sm transform hover:-translate-y-1 transition-transform">
-                    <div class="text-[10px] font-black opacity-40 uppercase mb-3 tracking-widest">Réseau Alumni</div>
-                    <div class="text-base font-bold">1 240+ Mentors actifs</div>
-                    <div class="flex -space-x-3 mt-3">
-                        <div class="w-6 h-6 rounded-full bg-gray-300 border-2 border-page dark:border-darkPage"></div>
-                        <div class="w-6 h-6 rounded-full bg-gray-400 border-2 border-page dark:border-darkPage"></div>
-                        <div class="w-6 h-6 rounded-full bg-gray-500 border-2 border-page dark:border-darkPage"></div>
+                <div class="glass p-4 text-left border-l-4 border-l-green-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+                    <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Réseau Alumni</div>
+                    <div class="text-sm font-bold">1 240+ Mentors actifs</div>
+                    <div class="flex -space-x-3 mt-2">
+                        <div class="w-5 h-5 rounded-full bg-gray-300 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-5 h-5 rounded-full bg-gray-400 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-5 h-5 rounded-full bg-gray-500 border-2 border-page dark:border-darkPage"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Marquee Expertise (Code Source Reference Style) -->
-    <div class="py-12 bg-white/30 dark:bg-white/5 border-y border-black/5 dark:border-white/5 overflow-hidden">
+    <!-- Marquee Expertise -->
+    <div class="py-10 bg-white/30 dark:bg-white/5 border-y border-black/5 dark:border-white/5 overflow-hidden">
         <div class="marquee-container">
             <div class="marquee-track">
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
@@ -208,7 +222,6 @@
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Réseau Alumni</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">CV Musclé</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Expérience Jeune Diplômé</span>
-                <!-- Duplicate for seamless loop -->
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Freelance Encadré</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Crédibilité Réelle</span>
@@ -217,17 +230,17 @@
     </div>
 
     <!-- Section Problématique -->
-    <section id="problem" class="py-32 px-5 relative overflow-hidden">
+    <section id="problem" class="py-24 px-5 lg:h-screen flex flex-col items-center justify-center">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <span class="reveal text-brand font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">L'Empathie</span>
-                <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-8 uppercase leading-none">
+                <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-8 uppercase leading-none">
                     Le paradoxe du <br><span class="text-gradient-brand">jeune diplômé.</span>
                 </h2>
             </div>
             
-            <div class="reveal grid md:grid-cols-2 gap-10 items-center">
-                <div class="space-y-8 text-base sm:text-xl leading-relaxed opacity-80">
+            <div class="reveal grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6 text-base sm:text-lg leading-relaxed opacity-80">
                     <p>Diplôme en main, tu avances sur une ligne fragile. Entre la joie de l'accomplissement et le vertige de l'après : l'appel rassurant du CDI vs l'élan incertain de l'entrepreneuriat.</p>
                     <p class="text-sm opacity-50">Cette peur silencieuse de ne pas être à la hauteur parce que l'expérience manque au moment précis où l'école s'efface.</p>
                 </div>
@@ -243,27 +256,27 @@
     </section>
 
     <!-- Section Solution -->
-    <section id="solution" class="py-32 px-5 bg-black/5 dark:bg-white/5 border-y border-black/5 dark:border-white/5">
+    <section id="solution" class="py-24 px-5 bg-black/5 dark:bg-white/5 border-y border-black/5 dark:border-white/5 lg:h-screen flex flex-col items-center justify-center">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-6 uppercase">ALUMBRIDGE : <br><span class="text-gradient-brand">TON BAC À SABLE PROFESSIONNEL.</span></h2>
+            <div class="text-center mb-16">
+                <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-4 uppercase">ALUMBRIDGE : <br><span class="text-gradient-brand">TON BAC À SABLE PROFESSIONNEL.</span></h2>
                 <p class="reveal text-sm sm:text-lg opacity-60 max-w-3xl mx-auto">Un cadre sécurisé pour réaliser des missions freelance concrètes, proposées par des entreprises, pour construire ta crédibilité réelle.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
-                    <div class="text-4xl mb-6">🎯</div>
-                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Missions Concrètes</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal glass p-8 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <h3 class="text-lg font-black mb-3 uppercase tracking-tighter">Missions Concrètes</h3>
                     <p class="text-sm opacity-60 leading-relaxed italic">De vrais projets, de vrais enjeux. Ne te contente plus de la théorie académique.</p>
                 </div>
-                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
-                    <div class="text-4xl mb-6">🛡️</div>
-                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Freelance Encadré</h3>
+                <div class="reveal glass p-8 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-3xl mb-4">🛡️</div>
+                    <h3 class="text-lg font-black mb-3 uppercase tracking-tighter">Freelance Encadré</h3>
                     <p class="text-sm opacity-60 leading-relaxed italic">La liberté de l'indépendant, le filet de sécurité du réseau. Jamais seul face au client.</p>
                 </div>
-                <div class="reveal glass p-10 group hover:bg-white dark:hover:bg-white/10 transition-colors">
-                    <div class="text-4xl mb-6">💎</div>
-                    <h3 class="text-xl font-black mb-4 uppercase tracking-tighter">Crédibilité</h3>
+                <div class="reveal glass p-8 group hover:bg-white dark:hover:bg-white/10 transition-colors">
+                    <div class="text-3xl mb-4">💎</div>
+                    <h3 class="text-lg font-black mb-3 uppercase tracking-tighter">Crédibilité</h3>
                     <p class="text-sm opacity-60 leading-relaxed italic">Ne dis plus que tu "sais faire", prouve-le. Transforme chaque mission en preuve de valeur.</p>
                 </div>
             </div>
@@ -271,49 +284,49 @@
     </section>
 
     <!-- Bénéfices -->
-    <section id="benefits" class="py-32 px-5">
+    <section id="benefits" class="py-24 px-5 lg:h-screen flex flex-col items-center justify-center">
         <div class="max-w-4xl mx-auto">
-            <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-16 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
+            <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-12 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
             
-            <div class="space-y-4">
-                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+            <div class="space-y-3">
+                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Vitesse]</span>
                     <p class="text-sm sm:text-base font-bold">Gagne de l'expérience professionnelle réelle rapidement.</p>
                 </div>
-                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Liberté]</span>
                     <p class="text-sm sm:text-base font-bold">Travaille sur des projets concrets sans s'engager trop tôt en CDI.</p>
                 </div>
-                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Exploration]</span>
                     <p class="text-sm sm:text-base font-bold">Teste le freelance ou l'entrepreneuriat sans risques excessifs.</p>
                 </div>
-                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Confiance]</span>
                     <p class="text-sm sm:text-base font-bold">Renforce ton CV et ton assurance face aux recruteurs.</p>
                 </div>
-                <div class="reveal glass p-6 flex items-center gap-6 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Réseau]</span>
                     <p class="text-sm sm:text-base font-bold">Évolue dans un cadre de confiance via le réseau alumni.</p>
                 </div>
             </div>
 
-            <div class="reveal mt-20 text-center">
-                <div class="inline-block glass p-8 border-brand/20 shadow-xl shadow-brand/5 max-w-2xl">
-                    <p class="text-xl sm:text-2xl font-black italic tracking-tighter leading-tight">
+            <div class="reveal mt-16 text-center">
+                <div class="inline-block glass p-6 border-brand/20 shadow-xl shadow-brand/5 max-w-xl mx-auto">
+                    <p class="text-lg sm:text-xl font-black italic tracking-tighter leading-tight">
                         "J'ai trouvé mon premier CDI grâce à une mission Alumbridge."
                     </p>
                     <div class="mt-4 flex items-center justify-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-brand/20 border border-brand/40"></div>
-                        <span class="text-xs font-bold uppercase tracking-widest opacity-60">Success Story Alumni #89</span>
+                        <div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/40"></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-60">Success Story Alumni #89</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Marquee Reviews (Reverse) -->
-    <div class="py-20 bg-brand/5 overflow-hidden">
+    <!-- Marquee Reviews -->
+    <div class="py-16 bg-brand/5 overflow-hidden">
         <div class="marquee-container">
             <div class="marquee-track marquee-reverse">
                 <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
@@ -331,7 +344,6 @@
                     <p class="text-xs opacity-80 leading-relaxed font-medium">"J'ai testé l'indépendance avec un filet de sécurité."</p>
                     <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Kevin S. (Freelance)</span>
                 </div>
-                <!-- Duplicate -->
                 <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
                     <div class="text-brand text-xs italic font-black">★★★★★</div>
                     <p class="text-xs opacity-80 leading-relaxed font-medium">"Le freelance encadré m'a permis de valider mes acquis."</p>
@@ -342,25 +354,25 @@
     </div>
 
     <!-- Section Cible -->
-    <section id="target" class="py-32 px-5">
+    <section id="target" class="py-32 px-5 lg:h-screen flex flex-col items-center justify-center">
         <div class="max-w-5xl mx-auto text-center">
-            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-brand/10 text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-8">rejoins le mouvement</div>
-            <h2 class="reveal text-4xl sm:text-7xl font-black tracking-tighter mb-16 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
+            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-brand/10 text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-6">rejoins le mouvement</div>
+            <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-12 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
             
             <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
                     <span class="text-2xl opacity-40 font-black">01</span>
                     <p class="text-sm sm:text-base font-bold leading-tight">Alumnis récemment diplômés en quête de légitimité.</p>
                 </div>
-                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
                     <span class="text-2xl opacity-40 font-black">02</span>
                     <p class="text-sm sm:text-base font-bold leading-tight">Étudiants en fin de cursus prêts pour l'immersion.</p>
                 </div>
-                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
                     <span class="text-2xl opacity-40 font-black">03</span>
                     <p class="text-sm sm:text-base font-bold leading-tight">Profils hésitants entre CDI, freelance ou entrepreneuriat.</p>
                 </div>
-                <div class="p-8 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
+                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
                     <span class="text-2xl opacity-40 font-black">04</span>
                     <p class="text-sm sm:text-base font-bold leading-tight">Ceux qui veulent apprendre par la pratique.</p>
                 </div>
@@ -371,35 +383,34 @@
     <!-- Footer CTA -->
     <footer id="contact" class="py-32 px-5 border-t border-black/5 dark:border-white/5 bg-white/20 dark:bg-black/40">
         <div class="max-w-2xl mx-auto text-center">
-            <h2 class="reveal text-4xl sm:text-7xl font-black tracking-tighter mb-12 uppercase leading-[0.9]">
+            <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-8 uppercase leading-[0.9]">
                 Prêt à construire ton <span class="text-gradient-brand">pont vers demain ?</span>
             </h2>
             
-            <div class="reveal flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-16">
+            <div class="reveal flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-10">
                 <span>Inscription gratuite</span>
                 <span>Sans engagement</span>
                 <span>Accès prioritaire</span>
             </div>
 
-            <div class="reveal space-y-6">
-                <a href="#" class="btn-premium block w-full py-6 rounded-2xl font-black text-sm sm:text-xl uppercase tracking-tight shadow-2xl shadow-brand/20">
+            <div class="reveal space-y-4">
+                <a href="#" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm sm:text-lg uppercase tracking-tight shadow-xl shadow-brand/20">
                     Remplir le questionnaire maintenant
                 </a>
                 
-                <div class="mt-20 text-left bg-white/80 dark:bg-black/40 p-10 sm:p-16 rounded-[48px] border border-black/5 dark:border-white/10 shadow-2xl">
-                    <h3 class="text-2xl font-black mb-10 uppercase tracking-tighter">M'envoyer le lien par mail</h3>
+                <div class="mt-16 text-left bg-white/80 dark:bg-black/40 p-8 sm:p-12 rounded-[40px] border border-black/5 dark:border-white/10 shadow-2xl">
+                    <h3 class="text-xl font-black mb-6 uppercase tracking-tighter">M'envoyer le lien par mail</h3>
                     <form onsubmit="event.preventDefault();" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <input type="text" placeholder="Prénom" class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
-                            <input type="email" placeholder="Email" class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
+                            <input type="text" placeholder="Prénom" class="w-full px-5 py-4 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
+                            <input type="email" placeholder="Email" class="w-full px-5 py-4 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm">
                         </div>
-                        <textarea placeholder="Votre message ou question..." class="w-full px-6 py-5 bg-page dark:bg-darkPage border border-black/5 dark:border-white/10 rounded-2xl focus:outline-none focus:border-brand transition-all font-medium text-sm h-40"></textarea>
-                        <button class="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity">Envoyer le lien</button>
+                        <button class="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-opacity">Envoyer le lien</button>
                     </form>
                 </div>
             </div>
 
-            <div class="mt-32 text-[10px] font-bold uppercase tracking-[0.5em] opacity-20">
+            <div class="mt-20 text-[10px] font-bold uppercase tracking-[0.5em] opacity-20">
                 Made with ❤️ by ALUMBRIDGE Team
             </div>
         </div>
@@ -414,8 +425,8 @@
         entrance.to(".hero-reveal", {
             opacity: 1,
             y: 0,
-            stagger: 0.15,
-            delay: 0.5
+            stagger: 0.1,
+            delay: 0.2
         });
 
         // --- Reveal Sections on Scroll ---
