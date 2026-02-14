@@ -47,7 +47,7 @@
             background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
 
         .dark .bg-grid {
@@ -68,6 +68,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 0, 0, 0.05);
             border-radius: 24px;
+            z-index: 10;
         }
 
         .dark .glass {
@@ -113,17 +114,25 @@
         .reveal { opacity: 0; transform: translateY(30px); }
         .hero-reveal { opacity: 0; transform: translateY(40px); }
 
-        /* PC Viewport constraints */
+        /* PC Viewport constraints & Fixes */
         @media (min-width: 1024px) {
             section {
-                min-height: auto;
-                max-height: 100vh; /* Garde les sections dans le champ de vision */
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 overflow: hidden;
-                padding-top: 5rem;
-                padding-bottom: 5rem;
             }
+            /* Évite que le texte touche le header */
             .hero-pc-fix {
-                padding-top: 8rem;
+                padding-top: 120px !important; 
+            }
+            /* Empêche la superposition en limitant la taille des blocs */
+            .hero-content-wrapper {
+                max-height: 90vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
         }
     </style>
@@ -133,7 +142,7 @@
     <div class="bg-grid"></div>
 
     <!-- Header -->
-    <nav class="fixed top-0 w-full z-50 bg-page/80 dark:bg-darkPage/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
+    <nav class="fixed top-0 w-full z-[100] bg-page/80 dark:bg-darkPage/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-brand/20">A</div>
@@ -159,8 +168,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative hero-pc-fix pt-32 pb-16 px-5 lg:h-screen flex flex-col items-center justify-center text-center">
-        <div class="max-w-5xl mx-auto">
+    <section class="relative hero-pc-fix pt-32 pb-16 px-5 flex flex-col items-center justify-center text-center">
+        <div class="max-w-5xl mx-auto hero-content-wrapper w-full">
             <h1 class="hero-reveal font-black tracking-tighter mb-4 text-4xl sm:text-6xl lg:text-7xl leading-[1.1]">
                 Le <span class="text-gradient-brand font-display italic px-2">PONT</span> entre ton diplôme <br class="hidden sm:block">
                 et ta carrière idéale.
@@ -174,7 +183,7 @@
                 Teste tes compétences, muscle ton CV et choisis ta voie (salariat ou entrepreneuriat) avec l'appui du réseau alumni.
             </p>
 
-            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+            <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
                 <a href="#" class="btn-premium px-8 py-4 rounded-full font-black text-sm sm:text-base w-full sm:w-auto shadow-xl">
                     REJOINDRE L'AVENTURE
                 </a>
@@ -184,28 +193,28 @@
             </div>
 
             <!-- Dashboard Preview / Info Cards -->
-            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-6xl mx-auto">
-                <div class="glass p-4 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+            <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-6xl mx-auto relative z-10">
+                <div class="glass p-5 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
                     <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Missions Freelance</div>
                     <div class="text-sm font-bold truncate">Audit UI/UX • Tech Startup</div>
-                    <div class="text-xs text-brand font-bold mt-1 flex items-center gap-2">
+                    <div class="text-xs text-brand font-bold mt-2 flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span> Encadrement expert
                     </div>
                 </div>
-                <div class="glass p-4 text-left border-l-4 border-l-brand shadow-sm transform hover:-translate-y-1 transition-transform">
+                <div class="glass p-5 text-left border-l-4 border-l-brand shadow-sm transform hover:-translate-y-1 transition-transform">
                     <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Compétences Réelles</div>
                     <div class="text-sm font-bold">+85% Crédibilité CV</div>
-                    <div class="w-full bg-black/5 dark:bg-white/10 h-1 rounded-full mt-2">
+                    <div class="w-full bg-black/5 dark:bg-white/10 h-1 rounded-full mt-3">
                         <div class="bg-brand h-full rounded-full" style="width: 85%"></div>
                     </div>
                 </div>
-                <div class="glass p-4 text-left border-l-4 border-l-green-500 shadow-sm transform hover:-translate-y-1 transition-transform">
+                <div class="glass p-5 text-left border-l-4 border-l-green-500 shadow-sm transform hover:-translate-y-1 transition-transform">
                     <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Réseau Alumni</div>
                     <div class="text-sm font-bold">1 240+ Mentors actifs</div>
-                    <div class="flex -space-x-3 mt-2">
-                        <div class="w-5 h-5 rounded-full bg-gray-300 border-2 border-page dark:border-darkPage"></div>
-                        <div class="w-5 h-5 rounded-full bg-gray-400 border-2 border-page dark:border-darkPage"></div>
-                        <div class="w-5 h-5 rounded-full bg-gray-500 border-2 border-page dark:border-darkPage"></div>
+                    <div class="flex -space-x-3 mt-3">
+                        <div class="w-6 h-6 rounded-full bg-gray-300 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-400 border-2 border-page dark:border-darkPage"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-500 border-2 border-page dark:border-darkPage"></div>
                     </div>
                 </div>
             </div>
@@ -213,7 +222,7 @@
     </section>
 
     <!-- Marquee Expertise -->
-    <div class="py-10 bg-white/30 dark:bg-white/5 border-y border-black/5 dark:border-white/5 overflow-hidden">
+    <div class="py-10 bg-white/30 dark:bg-white/5 border-y border-black/5 dark:border-white/5 overflow-hidden z-20 relative">
         <div class="marquee-container">
             <div class="marquee-track">
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
@@ -230,9 +239,9 @@
     </div>
 
     <!-- Section Problématique -->
-    <section id="problem" class="py-24 px-5 lg:h-screen flex flex-col items-center justify-center">
+    <section id="problem" class="py-24 px-5">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
+            <div class="text-center mb-10">
                 <span class="reveal text-brand font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">L'Empathie</span>
                 <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-8 uppercase leading-none">
                     Le paradoxe du <br><span class="text-gradient-brand">jeune diplômé.</span>
@@ -256,9 +265,9 @@
     </section>
 
     <!-- Section Solution -->
-    <section id="solution" class="py-24 px-5 bg-black/5 dark:bg-white/5 border-y border-black/5 dark:border-white/5 lg:h-screen flex flex-col items-center justify-center">
+    <section id="solution" class="py-24 px-5 bg-black/5 dark:bg-white/5 border-y border-black/5 dark:border-white/5">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-4 uppercase">ALUMBRIDGE : <br><span class="text-gradient-brand">TON BAC À SABLE PROFESSIONNEL.</span></h2>
                 <p class="reveal text-sm sm:text-lg opacity-60 max-w-3xl mx-auto">Un cadre sécurisé pour réaliser des missions freelance concrètes, proposées par des entreprises, pour construire ta crédibilité réelle.</p>
             </div>
@@ -284,34 +293,34 @@
     </section>
 
     <!-- Bénéfices -->
-    <section id="benefits" class="py-24 px-5 lg:h-screen flex flex-col items-center justify-center">
+    <section id="benefits" class="py-24 px-5">
         <div class="max-w-4xl mx-auto">
-            <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-12 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
+            <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-10 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
             
             <div class="space-y-3">
-                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Vitesse]</span>
                     <p class="text-sm sm:text-base font-bold">Gagne de l'expérience professionnelle réelle rapidement.</p>
                 </div>
-                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Liberté]</span>
                     <p class="text-sm sm:text-base font-bold">Travaille sur des projets concrets sans s'engager trop tôt en CDI.</p>
                 </div>
-                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Exploration]</span>
                     <p class="text-sm sm:text-base font-bold">Teste le freelance ou l'entrepreneuriat sans risques excessifs.</p>
                 </div>
-                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Confiance]</span>
                     <p class="text-sm sm:text-base font-bold">Renforce ton CV et ton assurance face aux recruteurs.</p>
                 </div>
-                <div class="reveal glass p-5 flex items-center gap-4 group hover:translate-x-2 transition-transform">
+                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
                     <span class="text-brand font-black text-xs uppercase tracking-widest">[Réseau]</span>
                     <p class="text-sm sm:text-base font-bold">Évolue dans un cadre de confiance via le réseau alumni.</p>
                 </div>
             </div>
 
-            <div class="reveal mt-16 text-center">
+            <div class="reveal mt-12 text-center">
                 <div class="inline-block glass p-6 border-brand/20 shadow-xl shadow-brand/5 max-w-xl mx-auto">
                     <p class="text-lg sm:text-xl font-black italic tracking-tighter leading-tight">
                         "J'ai trouvé mon premier CDI grâce à une mission Alumbridge."
@@ -326,7 +335,7 @@
     </section>
 
     <!-- Marquee Reviews -->
-    <div class="py-16 bg-brand/5 overflow-hidden">
+    <div class="py-16 bg-brand/5 overflow-hidden relative z-20">
         <div class="marquee-container">
             <div class="marquee-track marquee-reverse">
                 <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
@@ -354,10 +363,10 @@
     </div>
 
     <!-- Section Cible -->
-    <section id="target" class="py-32 px-5 lg:h-screen flex flex-col items-center justify-center">
+    <section id="target" class="py-32 px-5">
         <div class="max-w-5xl mx-auto text-center">
             <div class="reveal inline-block px-4 py-1.5 rounded-full bg-brand/10 text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-6">rejoins le mouvement</div>
-            <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-12 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
+            <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-10 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
             
             <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                 <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
@@ -381,7 +390,7 @@
     </section>
 
     <!-- Footer CTA -->
-    <footer id="contact" class="py-32 px-5 border-t border-black/5 dark:border-white/5 bg-white/20 dark:bg-black/40">
+    <footer id="contact" class="py-32 px-5 border-t border-black/5 dark:border-white/5 bg-white/20 dark:bg-black/40 relative z-30">
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-8 uppercase leading-[0.9]">
                 Prêt à construire ton <span class="text-gradient-brand">pont vers demain ?</span>
@@ -394,7 +403,7 @@
             </div>
 
             <div class="reveal space-y-4">
-                <a href="#" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm sm:text-lg uppercase tracking-tight shadow-xl shadow-brand/20">
+                <a href="#" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm sm:text-lg uppercase tracking-tight shadow-xl shadow-brand/10">
                     Remplir le questionnaire maintenant
                 </a>
                 
