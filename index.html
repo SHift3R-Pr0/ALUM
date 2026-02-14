@@ -144,10 +144,11 @@
     <!-- Header -->
     <nav class="fixed top-0 w-full z-[100] bg-page/80 dark:bg-darkPage/80 backdrop-blur-md border-b border-black/5 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-brand/20">A</div>
-                <span class="text-lg font-black tracking-tighter">ALUMBRIDGE</span>
-            </div>
+            <!-- Logo avec redirection vers Accueil -->
+            <a href="#home" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">A</div>
+                <span class="text-lg font-black tracking-tighter group-hover:text-brand transition-colors">ALUMBRIDGE</span>
+            </a>
             
             <div class="hidden lg:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest opacity-60">
                 <a href="#problem" class="hover:text-brand transition-colors">Problème</a>
@@ -168,7 +169,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative hero-pc-fix pt-32 pb-16 px-5 flex flex-col items-center justify-center text-center">
+    <section id="home" class="relative hero-pc-fix pt-32 pb-16 px-5 flex flex-col items-center justify-center text-center">
         <div class="max-w-5xl mx-auto hero-content-wrapper w-full">
             <h1 class="hero-reveal font-black tracking-tighter mb-4 text-4xl sm:text-6xl lg:text-7xl leading-[1.1]">
                 Le <span class="text-gradient-brand font-display italic px-2">PONT</span> entre ton diplôme <br class="hidden sm:block">
