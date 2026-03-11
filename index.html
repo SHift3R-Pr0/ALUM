@@ -39,7 +39,6 @@
             color: #F1F1F1;
         }
 
-        /* Background Grid */
         .bg-grid {
             position: fixed;
             inset: 0;
@@ -76,7 +75,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Nav Transition */
         #main-nav {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
         }
@@ -85,7 +83,6 @@
             opacity: 0;
         }
 
-        /* Marquee Styles */
         .marquee-container {
             display: flex;
             overflow: hidden;
@@ -116,14 +113,13 @@
             background: linear-gradient(135deg, #F97316 0%, #DC2626 100%);
             color: white;
             transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
         }
         .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3); }
 
-        /* GSAP Initial States */
         .reveal { opacity: 0; transform: translateY(30px); }
         .hero-reveal { opacity: 0; transform: translateY(40px); }
 
-        /* PC Viewport constraints & Fixes */
         @media (min-width: 1024px) {
             section {
                 min-height: 100vh;
@@ -142,30 +138,57 @@
                 justify-content: center;
             }
         }
+
+        /* Typeform Modal Logic */
+        #typeform-modal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #typeform-modal.active {
+            display: flex;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
     <div class="bg-grid"></div>
 
+    <!-- Typeform Modal Wrapper -->
+    <div id="typeform-modal" class="fixed inset-0 z-[200] bg-black flex flex-col">
+        <div class="h-14 w-full flex items-center justify-between px-6 bg-white dark:bg-darkPage border-b border-black/10 dark:border-white/10">
+            <span class="text-[10px] font-black tracking-widest uppercase opacity-50">Questionnaire Alumbridge</span>
+            <button onclick="closeTypeform()" class="flex items-center gap-2 hover:text-brand transition-colors">
+                <span class="text-[10px] font-black uppercase tracking-widest">Fermer</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="flex-grow relative">
+            <iframe 
+                id="typeform-iframe" 
+                src="about:blank" 
+                class="absolute inset-0 w-full h-full border-none" 
+                allow="geolocation; microphone; camera; pcm-full-screen; fullscreen; autoplay; encrypted-media;"
+            ></iframe>
+        </div>
+    </div>
+
     <!-- Floating Navigation -->
     <nav id="main-nav" class="fixed top-0 w-full z-[100] pointer-events-none">
         <div class="max-w-7xl mx-auto px-5 py-6 flex items-center justify-between">
-            <!-- Logo Floating -->
             <a href="#home" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center gap-2 group pointer-events-auto">
                 <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-brand/20 group-hover:scale-105 transition-transform">A</div>
                 <span class="text-lg font-black tracking-tighter group-hover:text-brand transition-colors">ALUMBRIDGE</span>
             </a>
             
             <div class="flex items-center gap-3 pointer-events-auto">
-                <!-- Theme Toggle Floating -->
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-md opacity-80 hover:opacity-100 transition-all">
                     <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                 </button>
-                <!-- Signup Button Floating -->
-                <a href="#contact" class="btn-premium px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-tight shadow-xl">
+                <button onclick="openTypeform()" class="btn-premium px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-tight shadow-xl">
                     Inscription gratuite
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -187,15 +210,15 @@
             </p>
 
             <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-                <a href="#contact" class="btn-premium px-8 py-4 rounded-full font-black text-sm sm:text-base w-full sm:w-auto shadow-xl">
+                <button onclick="openTypeform()" class="btn-premium px-8 py-4 rounded-full font-black text-sm sm:text-base w-full sm:w-auto shadow-xl">
                     REJOINDRE L'AVENTURE
-                </a>
+                </button>
                 <button onclick="scrollToContact()" class="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 px-8 py-4 rounded-full font-bold text-sm sm:text-base w-full sm:w-auto hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
                     M'envoyer le lien par mail
                 </button>
             </div>
 
-            <!-- Dashboard Preview / Info Cards -->
+            <!-- Dashboard Preview -->
             <div class="hero-reveal grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-6xl mx-auto relative z-10">
                 <div class="glass p-5 text-left border-l-4 border-l-blue-500 shadow-sm transform hover:-translate-y-1 transition-transform">
                     <div class="text-[9px] font-black opacity-40 uppercase mb-2 tracking-widest">Missions Freelance</div>
@@ -236,7 +259,6 @@
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Expérience Jeune Diplômé</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Freelance Encadré</span>
-                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Crédibilité Réelle</span>
             </div>
         </div>
     </div>
@@ -295,103 +317,6 @@
         </div>
     </section>
 
-    <!-- Bénéfices -->
-    <section id="benefits" class="py-24 px-5">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="reveal text-2xl sm:text-4xl font-black tracking-tighter mb-10 text-center uppercase">Ce que tu gagnes <span class="text-brand">concrètement</span></h2>
-            
-            <div class="space-y-3">
-                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
-                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Vitesse]</span>
-                    <p class="text-sm sm:text-base font-bold">Gagne de l'expérience professionnelle réelle rapidement.</p>
-                </div>
-                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
-                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Liberté]</span>
-                    <p class="text-sm sm:text-base font-bold">Travaille sur des projets concrets sans s'engager trop tôt en CDI.</p>
-                </div>
-                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
-                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Exploration]</span>
-                    <p class="text-sm sm:text-base font-bold">Teste le freelance ou l'entrepreneuriat sans risques excessifs.</p>
-                </div>
-                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
-                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Confiance]</span>
-                    <p class="text-sm sm:text-base font-bold">Renforce ton CV et ton assurance face aux recruteurs.</p>
-                </div>
-                <div class="reveal glass p-4 flex items-center gap-4 group hover:translate-x-2 transition-transform">
-                    <span class="text-brand font-black text-xs uppercase tracking-widest">[Réseau]</span>
-                    <p class="text-sm sm:text-base font-bold">Évolue dans un cadre de confiance via le réseau alumni.</p>
-                </div>
-            </div>
-
-            <div class="reveal mt-12 text-center">
-                <div class="inline-block glass p-6 border-brand/20 shadow-xl shadow-brand/5 max-w-xl mx-auto">
-                    <p class="text-lg sm:text-xl font-black italic tracking-tighter leading-tight">
-                        "J'ai trouvé mon premier CDI grâce à une mission Alumbridge."
-                    </p>
-                    <div class="mt-4 flex items-center justify-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/40"></div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest opacity-60">Success Story Alumni</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee Reviews -->
-    <div class="py-16 bg-brand/5 overflow-hidden relative z-20">
-        <div class="marquee-container">
-            <div class="marquee-track marquee-reverse">
-                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
-                    <div class="text-brand text-xs italic font-black">★★★★★</div>
-                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Le freelance encadré m'a permis de valider mes acquis."</p>
-                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Julie R. (Alumni)</span>
-                </div>
-                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
-                    <div class="text-brand text-xs italic font-black">★★★★★</div>
-                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Enfin une alternative crédible au CDI immédiat."</p>
-                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Lucas M. (Étudiant)</span>
-                </div>
-                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
-                    <div class="text-brand text-xs italic font-black">★★★★★</div>
-                    <p class="text-xs opacity-80 leading-relaxed font-medium">"J'ai testé l'indépendance avec un filet de sécurité."</p>
-                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Kevin S. (Freelance)</span>
-                </div>
-                <div class="mx-6 glass p-6 min-w-[320px] flex flex-col gap-3">
-                    <div class="text-brand text-xs italic font-black">★★★★★</div>
-                    <p class="text-xs opacity-80 leading-relaxed font-medium">"Le freelance encadré m'a permis de valider mes acquis."</p>
-                    <span class="text-[9px] font-black uppercase tracking-widest opacity-40">— Julie R. (Alumni)</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section Cible -->
-    <section id="target" class="py-32 px-5">
-        <div class="max-w-5xl mx-auto text-center">
-            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-brand/10 text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-6">rejoins le mouvement</div>
-            <h2 class="reveal text-3xl sm:text-6xl font-black tracking-tighter mb-10 uppercase leading-none">On a conçu ce <span class="text-gradient-brand">PONT</span> pour ton profil.</h2>
-            
-            <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
-                    <span class="text-2xl opacity-40 font-black">01</span>
-                    <p class="text-sm sm:text-base font-bold leading-tight">Alumnis récemment diplômés en quête de légitimité.</p>
-                </div>
-                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
-                    <span class="text-2xl opacity-40 font-black">02</span>
-                    <p class="text-sm sm:text-base font-bold leading-tight">Étudiants en fin de cursus prêts pour l'immersion.</p>
-                </div>
-                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
-                    <span class="text-2xl opacity-40 font-black">03</span>
-                    <p class="text-sm sm:text-base font-bold leading-tight">Profils hésitants entre CDI, freelance ou entrepreneuriat.</p>
-                </div>
-                <div class="p-6 glass flex gap-6 items-center hover:bg-brand/5 transition-colors border-l-4 border-l-brand/20">
-                    <span class="text-2xl opacity-40 font-black">04</span>
-                    <p class="text-sm sm:text-base font-bold leading-tight">Ceux qui veulent apprendre par la pratique.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer CTA -->
     <footer id="contact" class="py-32 px-5 border-t border-black/5 dark:border-white/5 bg-white/20 dark:bg-black/40 relative z-30">
         <div class="max-w-2xl mx-auto text-center">
@@ -402,13 +327,13 @@
             <div class="reveal flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-10">
                 <span>Inscription gratuite</span>
                 <span>Sans engagement</span>
-                <span>Accès prioritaire aux premières missions</span>
+                <span>Accès prioritaire</span>
             </div>
 
             <div class="reveal space-y-4">
-                <a href="https://form.typeform.com/to/iYRw7ipB" target="_blank" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm sm:text-lg uppercase tracking-tight shadow-xl shadow-brand/10">
+                <button onclick="openTypeform()" class="btn-premium block w-full py-5 rounded-2xl font-black text-sm sm:text-lg uppercase tracking-tight shadow-xl shadow-brand/10">
                     Remplir le questionnaire maintenant
-                </a>
+                </button>
                 
                 <div class="mt-16 text-left bg-white/80 dark:bg-black/40 p-8 sm:p-12 rounded-[40px] border border-black/5 dark:border-white/10 shadow-2xl">
                     <h3 class="text-xl font-black mb-6 uppercase tracking-tighter">M'envoyer le lien par mail</h3>
@@ -431,16 +356,33 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        // --- Typeform Integration Functions ---
+        const typeformUrl = "https://form.typeform.com/to/iYRw7ipB";
+        const modal = document.getElementById('typeform-modal');
+        const iframe = document.getElementById('typeform-iframe');
+
+        function openTypeform() {
+            // Set URL only when opening to save resources
+            if (iframe.src === "about:blank") {
+                iframe.src = typeformUrl;
+            }
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeTypeform() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
         // --- Navigation Hide on Scroll ---
         let lastScrollY = window.scrollY;
         const nav = document.getElementById('main-nav');
         
         window.addEventListener('scroll', () => {
             if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                // Scroll down
                 nav.classList.add('nav-hidden');
             } else {
-                // Scroll up
                 nav.classList.remove('nav-hidden');
             }
             lastScrollY = window.scrollY;
@@ -491,10 +433,10 @@
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Apply saved theme
         if (localStorage.theme === 'dark') {
             document.documentElement.classList.add('dark');
-            document.getElementById('theme-icon').innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
+            const icon = document.getElementById('theme-icon');
+            if(icon) icon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
         }
     </script>
 </body>
