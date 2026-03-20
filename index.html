@@ -72,7 +72,7 @@
 
         .dark .glass {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.08);
         }
 
         #main-nav {
@@ -87,7 +87,6 @@
             display: flex;
             overflow: hidden;
             user-select: none;
-            gap: 20px;
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
@@ -96,7 +95,6 @@
             display: flex;
             justify-content: space-around;
             min-width: 100%;
-            gap: 20px;
             animation: scroll 40s linear infinite;
         }
 
@@ -169,7 +167,7 @@
                 id="typeform-iframe" 
                 src="about:blank" 
                 class="absolute inset-0 w-full h-full border-none" 
-                allow="geolocation; microphone; camera; pcm-full-screen; fullscreen; autoplay; encrypted-media;"
+                allow="geolocation; microphone; camera; fullscreen; autoplay; encrypted-media;"
             ></iframe>
         </div>
     </div>
@@ -201,11 +199,11 @@
                 et ton début de carrière idéale.
             </h1>
             
-            <h2 class="hero-reveal text-lg sm:text-2xl font-medium opacity-80 mb-6 max-w-3xl mx-auto leading-tight">
+            <h2 class="hero-reveal text-lg sm:text-2xl font-medium mb-6 max-w-3xl mx-auto leading-tight" data-opacity="0.8">
                 Gagne en <span class="text-brand font-bold underline decoration-brand/30 underline-offset-8">expérience réelle</span> grâce au freelance encadré, sans la pression immédiate du CDI.
             </h2>
 
-            <p class="hero-reveal text-sm sm:text-lg opacity-50 max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p class="hero-reveal text-sm sm:text-lg mb-8 max-w-2xl mx-auto leading-relaxed" data-opacity="0.5">
                 Teste tes compétences, muscle ton CV et choisis ta voie (salariat ou entrepreneuriat) avec l'appui du réseau alumni.
             </p>
 
@@ -254,8 +252,14 @@
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Réseau Alumni</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">CV Musclé</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Expérience Jeune Diplômé</span>
+            </div>
+            <div class="marquee-track">
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Missions Concrètes</span>
                 <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Freelance Encadré</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Crédibilité Réelle</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Réseau Alumni</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">CV Musclé</span>
+                <span class="mx-12 text-sm font-black uppercase tracking-[0.3em] opacity-40 italic">Expérience Jeune Diplômé</span>
             </div>
         </div>
     </div>
@@ -291,7 +295,7 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="reveal text-3xl sm:text-5xl font-black tracking-tighter mb-4 uppercase">ALUMBRIDGE : <br><span class="text-gradient-brand">TON BAC À SABLE PROFESSIONNEL.</span></h2>
-                <p class="reveal text-sm sm:text-lg opacity-60 max-w-3xl mx-auto">Un cadre sécurisé pour réaliser des missions freelance concrètes, proposées par des entreprises, pour construire ta crédibilité réelle.</p>
+                <p class="reveal text-sm sm:text-lg max-w-3xl mx-auto" data-opacity="0.6">Un cadre sécurisé pour réaliser des missions freelance concrètes, proposées par des entreprises, pour construire ta crédibilité réelle.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -321,7 +325,7 @@
                 Prêt à construire ton <span class="text-gradient-brand">pont vers demain ?</span>
             </h2>
             
-            <div class="reveal flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 mb-10">
+            <div class="reveal flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.3em] mb-10" data-opacity="0.4">
                 <span>Inscription gratuite</span>
                 <span>Sans engagement</span>
                 <span>Accès prioritaire</span>
@@ -377,7 +381,7 @@
         const entrance = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.5 }});
         
         entrance.to(".hero-reveal", {
-            opacity: 1,
+            opacity: (i, el) => el.dataset.opacity || 1,
             y: 0,
             stagger: 0.1,
             delay: 0.2
@@ -393,7 +397,7 @@
                     toggleActions: "play none none reverse"
                 },
                 y: 0,
-                opacity: 1,
+                opacity: (i, target) => target.dataset.opacity || 1,
                 duration: 1.2,
                 ease: "power4.out"
             });
@@ -414,11 +418,22 @@
             }
         }
 
-        if (localStorage.theme === 'dark') {
-            document.documentElement.classList.add('dark');
+        function updateThemeIcon() {
             const icon = document.getElementById('theme-icon');
-            if(icon) icon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
+            if (!icon) return;
+            if (document.documentElement.classList.contains('dark')) {
+                icon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
+            } else {
+                icon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>';
+            }
         }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        updateThemeIcon();
     </script>
 </body>
 </html>
